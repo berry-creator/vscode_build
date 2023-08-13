@@ -1,5 +1,5 @@
 FROM ubuntu:22.04
 
-RUN sudo apt update && sudo apt upgrade -y && sudo apt autoclean
+RUN apt update && apt upgrade -y && apt autoclean
 
 CMD ['ls' '-l']
