@@ -1,4 +1,4 @@
-FROM ubuntu:22.04
+FROM ubuntu: jammy
 
 RUN apt update && apt upgrade -y && apt autoclean
 
