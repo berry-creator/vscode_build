@@ -3,6 +3,10 @@ name: Build VSCode Web
 on:
   workflow_dispatch:
 
+defaults:
+  run:
+    working-directory: vscode_source
+
 env:
   BUILD_VERSION: 1.18.1
   DOCKERHUB_REPO: letsdone/vscode-web
@@ -13,6 +17,11 @@ jobs:
     if: github.event.repository.owner.id == github.event.sender.id
 
     steps:
+    - name: Checkout Dockerfile
+      uses: actions/checkout@master
+      with:
+        path: vscode_dockerfile
+    
     - name: Download VSCode Source
       env:
           GIT_TERMINAL_PROMPT: 1
@@ -20,6 +29,10 @@ jobs:
       with:
           repository: microsoft/vscode
           ref: ${{env.BUILD_VERSION}}
+          path: vscode_source
+
+    - name: Copy Dockerfile
+      run: cp ../vscode_dockerfile/Dockerfile .
           
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v2
